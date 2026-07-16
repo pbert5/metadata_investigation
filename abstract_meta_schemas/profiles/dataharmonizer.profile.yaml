@@ -1,0 +1,51 @@
+id: dataharmonizer
+name: DataHarmonizer compatibility profile
+description: Generates flat, template-oriented LinkML artifacts for current DataHarmonizer use.
+
+source_schema: ../schemas/canonical.linkml.yaml
+
+compatibility:
+  include_dh_interface: true
+  template_discovery:
+    strategy: is_a
+    parent_class: dh_interface
+
+enum_generation:
+  source: ../terminology
+  include_status:
+    - active
+  value_field: label
+
+templates:
+  ALE_culture_plate:
+    canonical_class: ALECulturePlate
+    is_a: dh_interface
+    columns_from_mapping: ../mappings/flattening.yaml
+  microbe_array_culture_plate:
+    canonical_class: MicrobeArrayCulturePlate
+    is_a: dh_interface
+    columns_from_mapping: ../mappings/flattening.yaml
+  enzyme_array_reaction_plate:
+    canonical_class: EnzymeArrayReactionPlate
+    is_a: dh_interface
+    columns_from_mapping: ../mappings/flattening.yaml
+  od_sample_plate:
+    canonical_class: ODPlate
+    is_a: dh_interface
+    columns_from_mapping: ../mappings/flattening.yaml
+  DNA_stock_plate:
+    canonical_class: DNAStockPlate
+    is_a: dh_interface
+    columns_from_mapping: ../mappings/flattening.yaml
+
+column_policy:
+  preserve_current_names: true
+  preserve_slot_groups: true
+  flatten_multivalued_usages:
+    carbon_sources: 3
+    nitrogen_sources: 3
+    reagents: 3
+
+notes:
+  - This profile is an adapter. Do not edit generated schemas by hand.
+  - DataHarmonizer dropdowns should come from terminology tables, not canonical schema enums.

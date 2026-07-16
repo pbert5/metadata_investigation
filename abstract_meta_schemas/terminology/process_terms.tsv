@@ -1,0 +1,31 @@
+term_set	id	label	status	definition	aliases	source
+growth_medium	LB	LB	active	Lysogeny broth or lab-specific LB medium.		current_schema_v1.0.9
+growth_medium	M9	M9	active	M9 minimal medium.		current_schema_v1.0.9
+growth_medium	MOPS	MOPS	active	MOPS medium.		current_schema_v1.0.9
+growth_medium	MRS	MRS	active	MRS medium.		current_schema_v1.0.9
+growth_medium	YPD	YPD	active	Yeast extract peptone dextrose medium.		current_schema_v1.0.9
+growth_medium	other	Other	active	Growth medium not represented by a more specific term.		current_schema_v1.0.9
+carbon_source	glucose	Glucose	active	Glucose carbon source.		current_schema_v1.0.9
+carbon_source	xylose	Xylose	active	Xylose carbon source.		current_schema_v1.0.9
+carbon_source	galactose	Galactose	active	Galactose carbon source.		current_schema_v1.0.9
+carbon_source	raffinose	Raffinose	active	Raffinose carbon source.		current_schema_v1.0.9
+carbon_source	succinate	Succinate	active	Succinate carbon source.		current_schema_v1.0.9
+carbon_source	other	Other	active	Carbon source not represented by a more specific term.		current_schema_v1.0.9
+nitrogen_source	ammonium_sulfate	Ammonium sulfate	active	Ammonium sulfate nitrogen source.		current_schema_v1.0.9
+nitrogen_source	msg	MSG	active	Monosodium glutamate nitrogen source.	monosodium glutamate	current_schema_v1.0.9
+nitrogen_source	peptone	Peptone	active	Peptone nitrogen source.		current_schema_v1.0.9
+nitrogen_source	yeast_extract	Yeast Extract	active	Yeast extract nitrogen source.		current_schema_v1.0.9
+nitrogen_source	yp	YP	active	Yeast extract peptone nitrogen source.		current_schema_v1.0.9
+nitrogen_source	other	Other	active	Nitrogen source not represented by a more specific term.		current_schema_v1.0.9
+media_selection_drug	AMP	AMP (ampicilin)	active	Ampicillin selection drug label from current schema.	ampicillin	current_schema_v1.0.9
+media_selection_drug	CAT	CAT (chloramphenicol)	active	Chloramphenicol selection drug label from current schema.	chloramphenicol	current_schema_v1.0.9
+media_selection_drug	KAN	KAN (kanamycin)	active	Kanamycin selection drug label from current schema.	kanamycin	current_schema_v1.0.9
+media_selection_drug	none	NONE	active	No selection drug.		current_schema_v1.0.9
+media_selection_drug	other	Other	active	Selection drug not represented by a more specific term.		current_schema_v1.0.9
+concentration_unit	molar	M	active	Molar concentration.	molar	current_schema_v1.0.9
+concentration_unit	millimolar	mM	active	Millimolar concentration.	millimolar	current_schema_v1.0.9
+concentration_unit	micromolar	uM	active	Micromolar concentration.	micromolar	current_schema_v1.0.9
+concentration_unit	grams_per_liter	g/L	active	Grams per liter.		current_schema_v1.0.9
+concentration_unit	milligrams_per_liter	mg/L	active	Milligrams per liter.		current_schema_v1.0.9
+concentration_unit	percent_volume_volume	% (v/v)	active	Percent volume per volume.		current_schema_v1.0.9
+concentration_unit	percent_weight_volume	% (w/v)	active	Percent weight per volume.		current_schema_v1.0.9

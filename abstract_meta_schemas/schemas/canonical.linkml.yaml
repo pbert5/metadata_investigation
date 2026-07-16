@@ -1,0 +1,371 @@
+id: https://example.org/abstract-meta-schemas/canonical
+name: abstract_meta_canonical
+description: Canonical nested metadata model for experiments, plates, wells, and reusable lab entities.
+default_prefix: ameta
+default_range: string
+
+prefixes:
+  ameta:
+    prefix_prefix: ameta
+    prefix_reference: https://example.org/abstract-meta-schemas/
+  linkml:
+    prefix_prefix: linkml
+    prefix_reference: https://w3id.org/linkml/
+
+imports:
+  - linkml:types
+
+classes:
+  Dataset:
+    tree_root: true
+    description: A submitted metadata package containing one or more experiment records.
+    slots:
+      - dataset_id
+      - title
+      - description
+      - experiments
+      - plates
+      - strains
+      - recipes
+      - assays
+      - reagents
+
+  Experiment:
+    description: A scientific activity that produces or organizes plates and measurements.
+    slots:
+      - experiment_id
+      - experiment_category
+      - title
+      - description
+      - plates
+
+  Plate:
+    description: Common plate metadata shared by all plate-like submissions.
+    slots:
+      - plate_id
+      - plate_name
+      - parent_barcode
+      - labware_type
+      - wells
+
+  CulturePlate:
+    is_a: Plate
+    description: Base class for culture plates.
+    slots:
+      - incubation
+      - recipe
+
+  ALECulturePlate:
+    is_a: CulturePlate
+    description: Culture plate used for adaptive laboratory evolution experiments.
+    slots:
+      - ale_passage_number
+      - ale_starting_strain
+
+  MicrobeArrayCulturePlate:
+    is_a: CulturePlate
+    description: Culture plate used for microbial array screens.
+
+  EnzymeArrayReactionPlate:
+    is_a: Plate
+    description: Reaction plate for enzyme-array assays.
+    slots:
+      - assay
+      - incubation
+
+  ODPlate:
+    is_a: Plate
+    description: Optical density sample plate.
+    slots:
+      - od_timepoint
+
+  DNAStockPlate:
+    is_a: Plate
+    description: Stock plate for nucleic-acid extraction outputs.
+    slots:
+      - assay
+      - pooled_library
+
+  WellSample:
+    description: Metadata for one occupied well or sample position.
+    slots:
+      - well
+      - sample_description
+      - strain
+      - recipe
+      - assay
+      - reagents
+      - starting_well_volume_ul
+
+  Strain:
+    description: Reusable strain record, usually referenced by plate wells.
+    slots:
+      - strain_id
+      - name
+      - organism
+      - genotype
+      - parent_strain
+      - ploidy
+      - mating_type
+      - verified
+      - notes
+
+  Recipe:
+    description: Reusable recipe record for growth medium and supplements.
+    slots:
+      - recipe_id
+      - name
+      - growth_medium
+      - growth_medium_lot
+      - carbon_sources
+      - nitrogen_sources
+      - selection_drug
+      - reagents
+
+  Assay:
+    description: Reusable assay definition.
+    slots:
+      - assay_id
+      - name
+      - assay_type
+      - method
+      - extraction_material_type
+      - notes
+
+  Reagent:
+    description: Reusable reagent record.
+    slots:
+      - reagent_id
+      - name
+      - vendor
+      - catalog_number
+      - lot_number
+      - stock_concentration
+      - storage_condition
+
+  SubstanceUsage:
+    description: A term plus concentration used by a recipe, assay, or well sample.
+    slots:
+      - term
+      - concentration
+      - concentration_unit
+
+  Incubation:
+    description: Incubation conditions applied to a plate or sample set.
+    slots:
+      - incubator_temperature
+      - oxygen_availability
+
+  PooledLibrary:
+    description: Pooled library metadata.
+    slots:
+      - pooled_library_type
+      - pooled_library_name
+
+slots:
+  dataset_id:
+    identifier: true
+    description: Stable identifier for a submitted dataset package.
+  experiment_id:
+    identifier: true
+    description: Stable identifier for an experiment.
+  experiment_category:
+    description: Controlled category describing the experiment.
+    annotations:
+      term_set: experiment_category
+  plate_id:
+    identifier: true
+    description: Stable identifier for a plate.
+  strain_id:
+    identifier: true
+    description: Stable identifier for a strain record.
+  recipe_id:
+    identifier: true
+    description: Stable identifier for a recipe record.
+  assay_id:
+    identifier: true
+    description: Stable identifier for an assay record.
+  reagent_id:
+    identifier: true
+    description: Stable identifier for a reagent record.
+
+  title:
+    description: Human-readable title.
+  description:
+    description: Free-text description.
+  name:
+    description: Lab-assigned name.
+  notes:
+    description: Free-text notes.
+
+  experiments:
+    range: Experiment
+    multivalued: true
+    inlined_as_list: true
+    description: Experiments included in the dataset.
+  plates:
+    range: Plate
+    multivalued: true
+    inlined_as_list: true
+    description: Plates included in the dataset or experiment.
+  wells:
+    range: WellSample
+    multivalued: true
+    inlined_as_list: true
+    description: Well-level sample records on a plate.
+  strains:
+    range: Strain
+    multivalued: true
+    inlined_as_list: true
+    description: Reusable strain records included in the dataset.
+  recipes:
+    range: Recipe
+    multivalued: true
+    inlined_as_list: true
+    description: Reusable recipe records included in the dataset.
+  assays:
+    range: Assay
+    multivalued: true
+    inlined_as_list: true
+    description: Reusable assay records included in the dataset.
+  reagents:
+    range: Reagent
+    multivalued: true
+    inlined_as_list: true
+    description: Reusable reagent records included in the dataset.
+
+  sample_description:
+    description: Brief description of the sample.
+  parent_barcode:
+    description: Parent barcode for a related sample or plate.
+  plate_name:
+    description: Name given to the plate at creation time.
+  labware_type:
+    description: Automation-friendly labware type.
+  well:
+    description: Well position on the plate, such as A1.
+  starting_well_volume_ul:
+    range: float
+    description: Starting culture volume in microliters.
+
+  organism:
+    description: Controlled organism term.
+    annotations:
+      term_set: organism
+  genotype:
+    description: Genotype string for the strain.
+  parent_strain:
+    range: Strain
+    description: Strain this strain was derived from.
+  ploidy:
+    description: Controlled ploidy term for a strain.
+    annotations:
+      term_set: ploidy
+  mating_type:
+    description: Controlled mating type term for a strain.
+    annotations:
+      term_set: mating_type
+  verified:
+    range: boolean
+    description: Whether the strain record has been verified.
+
+  recipe:
+    range: Recipe
+    description: Recipe associated with a plate or well sample.
+  strain:
+    range: Strain
+    description: Strain associated with a well sample.
+  assay:
+    range: Assay
+    description: Assay associated with a plate or well sample.
+  ale_starting_strain:
+    range: Strain
+    description: Starting strain for an adaptive laboratory evolution plate.
+  ale_passage_number:
+    range: integer
+    description: Sequential passage number for an ALE sample or plate.
+  od_timepoint:
+    range: integer
+    description: Position in an optical-density time series.
+
+  growth_medium:
+    description: Controlled growth medium term.
+    annotations:
+      term_set: growth_medium
+  growth_medium_lot:
+    description: Lot of the growth medium used.
+  carbon_sources:
+    range: SubstanceUsage
+    multivalued: true
+    inlined_as_list: true
+    description: Carbon sources and concentrations used by a recipe.
+    annotations:
+      term_set: carbon_source
+  nitrogen_sources:
+    range: SubstanceUsage
+    multivalued: true
+    inlined_as_list: true
+    description: Nitrogen sources and concentrations used by a recipe.
+    annotations:
+      term_set: nitrogen_source
+  selection_drug:
+    range: SubstanceUsage
+    description: Selection drug and concentration used by a recipe.
+    annotations:
+      term_set: media_selection_drug
+
+  assay_type:
+    description: Controlled assay type term.
+    annotations:
+      term_set: assay_type
+  method:
+    description: How the assay is performed.
+  extraction_material_type:
+    description: Controlled extraction material type term.
+    annotations:
+      term_set: extraction_material_type
+
+  vendor:
+    description: Vendor name for a reagent.
+  catalog_number:
+    description: Vendor catalog number for a reagent.
+  lot_number:
+    description: Lot number for a reagent or material.
+  stock_concentration:
+    range: float
+    description: Stock concentration for a reagent.
+  storage_condition:
+    description: Controlled storage condition term.
+    annotations:
+      term_set: storage_condition
+
+  incubation:
+    range: Incubation
+    description: Incubation conditions associated with a plate or sample set.
+  incubator_temperature:
+    range: integer
+    description: Incubation temperature in degrees C.
+  oxygen_availability:
+    description: Controlled oxygen availability term.
+    annotations:
+      term_set: oxygen_availability
+
+  pooled_library:
+    range: PooledLibrary
+    description: Pooled library associated with a plate or sample set.
+  pooled_library_type:
+    description: Controlled pooled library type term.
+    annotations:
+      term_set: pooled_library_type
+  pooled_library_name:
+    description: Lab-specific pooled library name.
+
+  term:
+    description: Term identifier or label from a profile-specific term set.
+  concentration:
+    range: float
+    description: Numeric concentration value.
+  concentration_unit:
+    description: Controlled unit for a concentration value.
+    annotations:
+      term_set: concentration_unit

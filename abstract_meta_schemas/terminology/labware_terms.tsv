@@ -1,0 +1,18 @@
+term_set	id	label	status	definition	aliases	source
+labware_type	thermo_omnitray_1_trough	1-trough-thermo-omnitray	active	Automation-friendly labware type from current schema.		current_schema_v1.0.9
+labware_type	midsci_5870_cfb_12_plate	12-plate-midsci-5870-cfb	active	Automation-friendly labware type from current schema.		current_schema_v1.0.9
+labware_type	midsci_3190_cfb_24_plate	24-plate-midsci-3190-cfb	active	Automation-friendly labware type from current schema.		current_schema_v1.0.9
+labware_type	nest_10400_24_plate	24-plate-nest-10400	active	Automation-friendly labware type from current schema.		current_schema_v1.0.9
+labware_type	other	Other	active	Labware type not represented by a more specific term.		current_schema_v1.0.9
+storage_condition	minus_20c	-20C	active	Stored at -20 C.		current_schema_v1.0.9
+storage_condition	minus_80c	-80C	active	Stored at -80 C.		current_schema_v1.0.9
+storage_condition	4c	4C	active	Stored at 4 C.		current_schema_v1.0.9
+storage_condition	room_temperature	Room Temperature	active	Stored at room temperature.	RT	current_schema_v1.0.9
+storage_condition	other	Other	active	Storage condition not represented by a more specific term.		current_schema_v1.0.9
+oxygen_availability	aerobic_room	Aerobic - Room	active	Aerobic room-condition oxygen availability.		current_schema_v1.0.9
+oxygen_availability	anaerobic	Anaerobic	active	Anaerobic condition.		current_schema_v1.0.9
+oxygen_availability	microaerobic	Microaerobic	active	Microaerobic condition.		current_schema_v1.0.9
+oxygen_availability	other	Other	active	Oxygen availability not represented by a more specific term.		current_schema_v1.0.9
+pooled_library_type	CRISPRi	CRISPRi	active	CRISPR interference pooled library.		current_schema_v1.0.9
+pooled_library_type	CRISPRtOE	CRISPRtOE	active	CRISPR transcriptional overexpression pooled library.		current_schema_v1.0.9
+pooled_library_type	SCRAMBLE	SCRAMBLE	active	SCRAMBLE pooled library.		current_schema_v1.0.9

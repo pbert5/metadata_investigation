@@ -1,0 +1,41 @@
+id: data_catalog
+name: Data catalog import profile
+description: Generates records optimized for lookup, filtering, and dataset import.
+
+source_schema: ../schemas/canonical.linkml.yaml
+
+records:
+  dataset:
+    canonical_class: Dataset
+    key: dataset_id
+  plate:
+    canonical_class: Plate
+    key: plate_id
+  well_sample:
+    canonical_class: WellSample
+    key:
+      - plate_id
+      - well
+  strain:
+    canonical_class: Strain
+    key: strain_id
+  recipe:
+    canonical_class: Recipe
+    key: recipe_id
+  assay:
+    canonical_class: Assay
+    key: assay_id
+  reagent:
+    canonical_class: Reagent
+    key: reagent_id
+
+enum_generation:
+  source: ../terminology
+  include_status:
+    - active
+    - deprecated
+  value_field: id
+
+flattening:
+  preserve_references: true
+  export_nested_repeats_as: child_tables

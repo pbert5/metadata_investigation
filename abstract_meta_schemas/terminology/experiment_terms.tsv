@@ -1,0 +1,13 @@
+term_set	id	label	status	definition	aliases	source
+experiment_category	ALE	ALE	active	Adaptive laboratory evolution experiment.	adaptive laboratory evolution	current_schema_v1.0.9
+experiment_category	array_screen_microbe	array_screen_microbe	active	Microbial array screen experiment.	microbe array screen	current_schema_v1.0.9
+experiment_category	array_screen_enzyme	array_screen_enzyme	active	Enzyme array screen experiment.	enzyme array screen	current_schema_v1.0.9
+experiment_category	gDNA_extraction	gDNA_extraction	active	Genomic DNA extraction experiment.	genomic DNA extraction	current_schema_v1.0.9
+experiment_category	pDNA_extraction	pDNA_extraction	active	Plasmid DNA extraction experiment.	plasmid DNA extraction	current_schema_v1.0.9
+experiment_category	Other	Other	active	Experiment category not represented by a more specific term.		current_schema_v1.0.9
+assay_type	enzyme	enzyme	active	Enzyme activity assay.		current_schema_v1.0.9
+assay_type	extraction	extraction	active	Nucleic acid extraction assay.		current_schema_v1.0.9
+extraction_material_type	cell_pellet	Cell pellet	active	Cell pellet material.		current_schema_v1.0.9
+extraction_material_type	culture_supernatant	Culture Supernatant	active	Culture supernatant material.		current_schema_v1.0.9
+extraction_material_type	culture_suspension	Culture Suspension	active	Culture suspension material.		current_schema_v1.0.9
+extraction_material_type	lysate	Lysate	active	Lysate material.		current_schema_v1.0.9

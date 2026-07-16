@@ -1,0 +1,14 @@
+term_set	id	label	status	definition	aliases	source
+organism	saccharomyces_cerevisiae	Saccharomyces cerevisiae	active	Yeast species used in experiments.	S. cerevisiae	current_schema_v1.0.9
+organism	escherichia_coli	Escherichia coli	active	Bacterial species used in experiments.	E. coli	current_schema_v1.0.9
+organism	pseudomonas_putida	Pseudomonas putida	active	Bacterial species used in experiments.	P. putida	current_schema_v1.0.9
+organism	rhodococcus_opacus	Rhodococcus opacus	active	Bacterial species used in experiments.	R. opacus	current_schema_v1.0.9
+organism	lactiplantibacillus_plantarum_wcfs1	Lactiplantibacillus plantarum WCFS1	active	Bacterial strain/species label used in current schema.		current_schema_v1.0.9
+ploidy	haploid	Haploid	active	One chromosome set.		current_schema_v1.0.9
+ploidy	diploid	Diploid	active	Two chromosome sets.		current_schema_v1.0.9
+ploidy	polyploid	Polyploid	active	More than two chromosome sets.		current_schema_v1.0.9
+ploidy	other	Other	active	Ploidy not represented by a more specific term.		current_schema_v1.0.9
+mating_type	MATa	MATa	active	Yeast mating type MATa.		current_schema_v1.0.9
+mating_type	MATalpha	MATalpha	active	Yeast mating type MATalpha.	MAT alpha	current_schema_v1.0.9
+mating_type	diploid	Diploid	active	Diploid mating type value from current schema.		current_schema_v1.0.9
+mating_type	not_applicable	N/A	active	Not applicable.	not applicable	current_schema_v1.0.9

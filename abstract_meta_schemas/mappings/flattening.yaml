@@ -1,0 +1,90 @@
+id: canonical_to_flat_v1
+description: Initial mapping from canonical nested metadata paths to current flat spreadsheet-style columns.
+
+defaults:
+  source_root: Dataset
+  collection_path: plates[].wells[]
+  null_behavior: blank_cell
+
+columns:
+  - target_column: sample_description
+    source_path: sample_description
+  - target_column: parent_barcode
+    source_path: plate.parent_barcode
+  - target_column: organism
+    source_path: strain.organism
+    term_set: organism
+  - target_column: straindb_id
+    source_path: strain.strain_id
+    reference_table: strains
+  - target_column: ALE_starting_straindb_id
+    source_path: plate.ale_starting_strain.strain_id
+    reference_table: strains
+  - target_column: ALE_passage_number
+    source_path: plate.ale_passage_number
+  - target_column: pooled_library_type
+    source_path: plate.pooled_library.pooled_library_type
+    term_set: pooled_library_type
+  - target_column: pooled_library_name
+    source_path: plate.pooled_library.pooled_library_name
+  - target_column: growth_medium
+    source_path: recipe.growth_medium
+    term_set: growth_medium
+  - target_column: growth_medium_lot
+    source_path: recipe.growth_medium_lot
+  - target_column: carbon_source_1
+    source_path: recipe.carbon_sources[0].term
+    term_set: carbon_source
+  - target_column: carbon_source_1_concentration
+    source_path: recipe.carbon_sources[0].concentration
+  - target_column: carbon_source_1_concentration_units
+    source_path: recipe.carbon_sources[0].concentration_unit
+    term_set: concentration_unit
+  - target_column: carbon_source_2
+    source_path: recipe.carbon_sources[1].term
+    term_set: carbon_source
+  - target_column: carbon_source_2_concentration
+    source_path: recipe.carbon_sources[1].concentration
+  - target_column: carbon_source_2_concentration_units
+    source_path: recipe.carbon_sources[1].concentration_unit
+    term_set: concentration_unit
+  - target_column: carbon_source_3
+    source_path: recipe.carbon_sources[2].term
+    term_set: carbon_source
+  - target_column: carbon_source_3_concentration
+    source_path: recipe.carbon_sources[2].concentration
+  - target_column: carbon_source_3_concentration_units
+    source_path: recipe.carbon_sources[2].concentration_unit
+    term_set: concentration_unit
+  - target_column: nitrogen_source_1
+    source_path: recipe.nitrogen_sources[0].term
+    term_set: nitrogen_source
+  - target_column: nitrogen_source_1_concentration
+    source_path: recipe.nitrogen_sources[0].concentration
+  - target_column: nitrogen_source_1_concentration_units
+    source_path: recipe.nitrogen_sources[0].concentration_unit
+    term_set: concentration_unit
+  - target_column: media_selection_drug
+    source_path: recipe.selection_drug.term
+    term_set: media_selection_drug
+  - target_column: drug_concentration
+    source_path: recipe.selection_drug.concentration
+  - target_column: incubator_temperature
+    source_path: plate.incubation.incubator_temperature
+  - target_column: starting_well_volume_uL
+    source_path: starting_well_volume_ul
+  - target_column: labware_type
+    source_path: plate.labware_type
+    term_set: labware_type
+  - target_column: OD_timepoint
+    source_path: plate.od_timepoint
+  - target_column: extraction_material_type
+    source_path: assay.extraction_material_type
+    term_set: extraction_material_type
+  - target_column: plate_name
+    source_path: plate.plate_name
+  - target_column: well
+    source_path: well
+  - target_column: assay_id
+    source_path: assay.assay_id
+    reference_table: assays
