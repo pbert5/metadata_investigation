@@ -1,0 +1,1 @@
+1. add new meta data has a text entry box with sugestions, this sucks, this should be a form like vscode settings so they can see what options are actualy availible

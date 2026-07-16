@@ -1,0 +1,6 @@
+[submodule "kat_schema_prototyping"]
+	path = kat_schema_prototyping
+	url = https://gitpub.wei.wisc.edu/psilbert/metadata_schema_prototyping.git
+[submodule "metadata_investigation"]
+	path = metadata_investigation
+	url = https://github.com/pbert5/metadata_investigation.git
