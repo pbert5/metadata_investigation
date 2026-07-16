@@ -102,11 +102,18 @@ Prepare a local DataHarmonizer checkout and sync both generated profiles into it
 nix run .#prepare-dataharmonizer
 ```
 
+This writes DataHarmonizer's local `web/templates/menu.json` with only the two repo-owned template groups:
+
+- `KM_microbial_container`
+- `KM_microbial_dh`
+
 Start the web UI:
 
 ```bash
 nix run .#dataharmonizer-web
 ```
+
+The web launcher also enforces the same filtered menu before starting, so upstream DataHarmonizer templates do not appear in the local UI.
 
 The default local URL is:
 

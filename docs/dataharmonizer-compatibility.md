@@ -25,6 +25,13 @@ http://127.0.0.1:18084/?template=km_microbial_container/DNA-seq
 http://127.0.0.1:18084/?template=km_microbial_dh/DNA-seq
 ```
 
+The local DataHarmonizer checkout is intentionally filtered to only these repo-owned schema groups:
+
+- `KM_microbial_container`
+- `KM_microbial_dh`
+
+Both `prepare-dataharmonizer` and `dataharmonizer-web` enforce that filtered `web/templates/menu.json`.
+
 ### Optimized LinkML Profile
 
 Generated with:

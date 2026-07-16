@@ -78,15 +78,51 @@
                 uv run --project "$PWD/../../../../.." --with linkml-runtime --with dpath --with pyyaml \
                   python ../../../script/linkml.py -i schema.yaml -m
               )
+              python - <<'PY'
+              import json
+              from pathlib import Path
+
+              menu_path = Path("vendor/DataHarmonizer/web/templates/menu.json")
+              menu = json.loads(menu_path.read_text())
+              keep = ["KM_microbial_container", "KM_microbial_dh"]
+              filtered = {name: menu[name] for name in keep if name in menu}
+              missing = [name for name in keep if name not in filtered]
+              if missing:
+                  raise SystemExit(f"Missing DataHarmonizer menu entries: {', '.join(missing)}")
+              menu_path.write_text(json.dumps(filtered, indent=2, separators=(",", ": ")) + "\n")
+              PY
             '';
           };
           dataHarmonizerWeb = pkgs.writeShellApplication {
             name = "dataharmonizer-web";
             runtimeInputs = [
+              pkgs.nodejs
               pkgs.yarn
             ];
             text = ''
               port="''${DATAHARMONIZER_PORT:-18084}"
+              if [ ! -f vendor/DataHarmonizer/web/templates/km_microbial_container/schema.json ] \
+                || [ ! -f vendor/DataHarmonizer/web/templates/km_microbial_dh/schema.json ]; then
+                echo "DataHarmonizer templates are missing; run: nix run .#prepare-dataharmonizer" >&2
+                exit 1
+              fi
+              node <<'JS'
+              const fs = require('fs');
+              const menuPath = 'vendor/DataHarmonizer/web/templates/menu.json';
+              const keep = ['KM_microbial_container', 'KM_microbial_dh'];
+              const menu = JSON.parse(fs.readFileSync(menuPath, 'utf8'));
+              const filtered = {};
+              const missing = [];
+              for (const name of keep) {
+                if (menu[name]) filtered[name] = menu[name];
+                else missing.push(name);
+              }
+              if (missing.length) {
+                console.error('Missing DataHarmonizer menu entries: ' + missing.join(', '));
+                process.exit(1);
+              }
+              fs.writeFileSync(menuPath, JSON.stringify(filtered, null, 2) + '\n');
+              JS
               cd vendor/DataHarmonizer
               if [ ! -d node_modules ]; then
                 yarn install --frozen-lockfile
