@@ -26,14 +26,14 @@
             name = "schema-to-yaml";
             runtimeInputs = [ scriptPython ];
             text = ''
-              exec python scripts/legacy_schema_to_linkml_yaml.py --mode optimized "$@"
+              exec python investigation/scripts/legacy_schema_to_linkml_yaml.py --mode optimized "$@"
             '';
           };
           schemaToDhYaml = pkgs.writeShellApplication {
             name = "schema-to-dh-yaml";
             runtimeInputs = [ scriptPython ];
             text = ''
-              exec python scripts/legacy_schema_to_linkml_yaml.py --mode dataharmonizer "$@"
+              exec python investigation/scripts/legacy_schema_to_linkml_yaml.py --mode dataharmonizer "$@"
             '';
           };
           prepareDataHarmonizer = pkgs.writeShellApplication {
@@ -46,36 +46,36 @@
             ];
             text = ''
               dh_dir="vendor/DataHarmonizer"
-              legacy_schema="examples/outdated/20260225_KM_microbial_templates_schema_v2.2.0.json"
+              legacy_schema="kat_schema_prototyping/20260213_bio_automation_metadata_schema_v1.0.5.json"
 
               if [ ! -d "$dh_dir/.git" ]; then
                 mkdir -p vendor
                 git clone https://github.com/cidgoh/DataHarmonizer.git "$dh_dir"
               fi
 
-              python scripts/legacy_schema_to_linkml_yaml.py "$legacy_schema" \
+              python investigation/scripts/legacy_schema_to_linkml_yaml.py "$legacy_schema" \
                 --mode optimized \
-                --schema-name KM_microbial_container \
-                --schema-id https://example.org/metadata/KM_microbial_container \
-                -o generated/microbial_templates.optimized.linkml.yaml
-              python scripts/legacy_schema_to_linkml_yaml.py "$legacy_schema" \
+                --schema-name bio_automation_container \
+                --schema-id https://example.org/metadata/bio_automation_container \
+                -o generated/bio_automation.optimized.linkml.yaml
+              python investigation/scripts/legacy_schema_to_linkml_yaml.py "$legacy_schema" \
                 --mode dataharmonizer \
-                --schema-name KM_microbial_dh \
-                --schema-id https://example.org/metadata/KM_microbial_dh \
-                -o generated/microbial_templates.dataharmonizer.linkml.yaml
+                --schema-name bio_automation_dh \
+                --schema-id https://example.org/metadata/bio_automation_dh \
+                -o generated/bio_automation.dataharmonizer.linkml.yaml
 
-              mkdir -p "$dh_dir/web/templates/km_microbial_container" "$dh_dir/web/templates/km_microbial_dh"
-              cp generated/microbial_templates.optimized.linkml.yaml "$dh_dir/web/templates/km_microbial_container/schema.yaml"
-              cp generated/microbial_templates.dataharmonizer.linkml.yaml "$dh_dir/web/templates/km_microbial_dh/schema.yaml"
+              mkdir -p "$dh_dir/web/templates/bio_automation_container" "$dh_dir/web/templates/bio_automation_dh"
+              cp generated/bio_automation.optimized.linkml.yaml "$dh_dir/web/templates/bio_automation_container/schema.yaml"
+              cp generated/bio_automation.dataharmonizer.linkml.yaml "$dh_dir/web/templates/bio_automation_dh/schema.yaml"
 
               (
-                cd "$dh_dir/web/templates/km_microbial_dh"
-                uv run --project "$PWD/../../../../.." --with linkml-runtime --with dpath --with pyyaml \
+                cd "$dh_dir/web/templates/bio_automation_dh"
+                uv run --project "$PWD/../../../../../investigation" --with linkml-runtime --with dpath --with pyyaml \
                   python ../../../script/linkml.py -i schema.yaml -m
               )
               (
-                cd "$dh_dir/web/templates/km_microbial_container"
-                uv run --project "$PWD/../../../../.." --with linkml-runtime --with dpath --with pyyaml \
+                cd "$dh_dir/web/templates/bio_automation_container"
+                uv run --project "$PWD/../../../../../investigation" --with linkml-runtime --with dpath --with pyyaml \
                   python ../../../script/linkml.py -i schema.yaml -m
               )
               python - <<'PY'
@@ -84,7 +84,7 @@
 
               menu_path = Path("vendor/DataHarmonizer/web/templates/menu.json")
               menu = json.loads(menu_path.read_text())
-              keep = ["KM_microbial_container", "KM_microbial_dh"]
+              keep = ["bio_automation_container", "bio_automation_dh"]
               filtered = {name: menu[name] for name in keep if name in menu}
               missing = [name for name in keep if name not in filtered]
               if missing:
@@ -101,15 +101,15 @@
             ];
             text = ''
               port="''${DATAHARMONIZER_PORT:-18084}"
-              if [ ! -f vendor/DataHarmonizer/web/templates/km_microbial_container/schema.json ] \
-                || [ ! -f vendor/DataHarmonizer/web/templates/km_microbial_dh/schema.json ]; then
+              if [ ! -f vendor/DataHarmonizer/web/templates/bio_automation_container/schema.json ] \
+                || [ ! -f vendor/DataHarmonizer/web/templates/bio_automation_dh/schema.json ]; then
                 echo "DataHarmonizer templates are missing; run: nix run .#prepare-dataharmonizer" >&2
                 exit 1
               fi
               node <<'JS'
               const fs = require('fs');
               const menuPath = 'vendor/DataHarmonizer/web/templates/menu.json';
-              const keep = ['KM_microbial_container', 'KM_microbial_dh'];
+              const keep = ['bio_automation_container', 'bio_automation_dh'];
               const menu = JSON.parse(fs.readFileSync(menuPath, 'utf8'));
               const filtered = {};
               const missing = [];
@@ -186,12 +186,12 @@
             cp -r "$src" source
             chmod -R u+w source
             cd source
-            python scripts/legacy_schema_to_linkml_yaml.py \
-              examples/outdated/20260225_KM_microbial_templates_schema_v2.2.0.json \
+            python investigation/scripts/legacy_schema_to_linkml_yaml.py \
+              kat_schema_prototyping/20260213_bio_automation_metadata_schema_v1.0.5.json \
               --mode optimized \
               -o optimized.yaml
-            python scripts/legacy_schema_to_linkml_yaml.py \
-              examples/outdated/20260225_KM_microbial_templates_schema_v2.2.0.json \
+            python investigation/scripts/legacy_schema_to_linkml_yaml.py \
+              kat_schema_prototyping/20260213_bio_automation_metadata_schema_v1.0.5.json \
               --mode dataharmonizer \
               -o dataharmonizer.yaml
             python - <<'PY'
@@ -251,14 +251,14 @@
             name = "schema-to-yaml";
             runtimeInputs = [ scriptPython ];
             text = ''
-              exec python scripts/legacy_schema_to_linkml_yaml.py --mode optimized "$@"
+              exec python investigation/scripts/legacy_schema_to_linkml_yaml.py --mode optimized "$@"
             '';
           };
           schemaToDhYaml = pkgs.writeShellApplication {
             name = "schema-to-dh-yaml";
             runtimeInputs = [ scriptPython ];
             text = ''
-              exec python scripts/legacy_schema_to_linkml_yaml.py --mode dataharmonizer "$@"
+              exec python investigation/scripts/legacy_schema_to_linkml_yaml.py --mode dataharmonizer "$@"
             '';
           };
           devPython = pkgs.python3.withPackages (
