@@ -1,0 +1,9 @@
+.venv/
+.serena/
+__pycache__/
+.pytest_cache/
+*.egg-info/
+scripts/*.egg-info/
+vendor/
+node_modules/
+

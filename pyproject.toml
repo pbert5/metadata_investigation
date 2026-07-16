@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "metadata-schema-tools"
+version = "0.1.0"
+description = "Metadata schema optimization and DataHarmonizer compatibility tooling"
+requires-python = ">=3.9"
+dependencies = [
+  "PyYAML",
+]
+
+[project.scripts]
+legacy-schema-to-linkml-yaml = "legacy_schema_to_linkml_yaml:main"
+
+[tool.setuptools]
+py-modules = ["legacy_schema_to_linkml_yaml"]
+
+[tool.setuptools.package-dir]
+"" = "scripts"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["scripts"]
