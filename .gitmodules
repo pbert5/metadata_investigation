@@ -1,6 +1,6 @@
 [submodule "kat_schema_prototyping"]
 	path = kat_schema_prototyping
-	url = https://gitpub.wei.wisc.edu/psilbert/metadata_schema_prototyping.git
+	url = git@gitpub.wei.wisc.edu:psilbert/metadata_schema_prototyping.git
 [submodule "datacatlogue_webui_test"]
 	path = datacatlogue_webui_test
 	url = git@gitpub.wei.wisc.edu:botts1/sheet-plate-builder/sheet_plate_app.git
