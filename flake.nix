@@ -130,6 +130,13 @@
               exec yarn dev --host 127.0.0.1 --port "$port"
             '';
           };
+          datacatalogueWebuiTest = pkgs.writeShellApplication {
+            name = "datacatalogue-webui-test";
+            runtimeInputs = [ pkgs.python3 ];
+            text = ''
+              exec python datacatlogue_webui_test/run.py "$@"
+            '';
+          };
         in
         {
           schema-to-yaml = {
@@ -151,6 +158,11 @@
             type = "app";
             program = "${dataHarmonizerWeb}/bin/dataharmonizer-web";
             meta.description = "Run the DataHarmonizer webpack development server.";
+          };
+          datacatalogue-webui-test = {
+            type = "app";
+            program = "${datacatalogueWebuiTest}/bin/datacatalogue-webui-test";
+            meta.description = "Run the Data Catalogue Web UI prototype server.";
           };
         }
       );
