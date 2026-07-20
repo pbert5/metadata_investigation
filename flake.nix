@@ -13,6 +13,41 @@
       forAllSystems = nixpkgs.lib.genAttrs systems;
     in
     {
+      packages = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          appRoot = ./datacatlogue_webui_test;
+          datacatalogueWebuiImage = pkgs.dockerTools.buildLayeredImage {
+            name = "datacatalogue-webui";
+            tag = "latest";
+            contents = [
+              pkgs.python3
+              pkgs.coreutils
+            ];
+            config = {
+              Cmd = [ "${pkgs.python3}/bin/python" "/app/run.py" ];
+              WorkingDir = "/app";
+              Env = [
+                "DATACATALOGUE_WEBUI_HOST=0.0.0.0"
+                "DATACATALOGUE_WEBUI_PORT=18086"
+              ];
+              ExposedPorts = { "18086/tcp" = { }; };
+            };
+            extraCommands = ''
+              mkdir -p app
+              cp -r ${appRoot}/src app/src
+              cp -r ${appRoot}/static app/static
+              cp -r ${appRoot}/internal_config app/internal_config
+              cp ${appRoot}/run.py app/run.py
+            '';
+          };
+        in
+        {
+          datacatalogue-webui-docker = datacatalogueWebuiImage;
+        }
+      );
+
       apps = forAllSystems (
         system:
         let
