@@ -17,7 +17,7 @@
         system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
-          appRoot = ./datacatlogue_webui_test;
+          appRoot = ./meta_webui_interface;
           datacatalogueWebuiImage = pkgs.dockerTools.buildLayeredImage {
             name = "datacatalogue-webui";
             tag = "latest";
@@ -169,7 +169,7 @@
             name = "datacatalogue-webui-test";
             runtimeInputs = [ pkgs.python3 ];
             text = ''
-              exec python datacatlogue_webui_test/run.py "$@"
+              exec python meta_webui_interface/run.py "$@"
             '';
           };
         in
