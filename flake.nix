@@ -18,8 +18,8 @@
         let
           pkgs = nixpkgs.legacyPackages.${system};
           appRoot = ./meta_webui_interface;
-          datacatalogueWebuiImage = pkgs.dockerTools.buildLayeredImage {
-            name = "datacatalogue-webui";
+          metaWebuiInterfaceImage = pkgs.dockerTools.buildLayeredImage {
+            name = "meta-webui-interface";
             tag = "latest";
             contents = [
               pkgs.python3
@@ -29,8 +29,8 @@
               Cmd = [ "${pkgs.python3}/bin/python" "/app/run.py" ];
               WorkingDir = "/app";
               Env = [
-                "DATACATALOGUE_WEBUI_HOST=0.0.0.0"
-                "DATACATALOGUE_WEBUI_PORT=18086"
+                "META_WEBUI_INTERFACE_HOST=0.0.0.0"
+                "META_WEBUI_INTERFACE_PORT=18086"
               ];
               ExposedPorts = { "18086/tcp" = { }; };
             };
@@ -44,7 +44,7 @@
           };
         in
         {
-          datacatalogue-webui-docker = datacatalogueWebuiImage;
+          meta-webui-interface-docker = metaWebuiInterfaceImage;
         }
       );
 
@@ -165,8 +165,8 @@
               exec yarn dev --host 127.0.0.1 --port "$port"
             '';
           };
-          datacatalogueWebuiTest = pkgs.writeShellApplication {
-            name = "datacatalogue-webui-test";
+          metaWebuiInterface = pkgs.writeShellApplication {
+            name = "meta-webui-interface";
             runtimeInputs = [ pkgs.python3 ];
             text = ''
               exec python meta_webui_interface/run.py "$@"
@@ -194,10 +194,10 @@
             program = "${dataHarmonizerWeb}/bin/dataharmonizer-web";
             meta.description = "Run the DataHarmonizer webpack development server.";
           };
-          datacatalogue-webui-test = {
+          meta-webui-interface = {
             type = "app";
-            program = "${datacatalogueWebuiTest}/bin/datacatalogue-webui-test";
-            meta.description = "Run the Data Catalogue Web UI prototype server.";
+            program = "${metaWebuiInterface}/bin/meta-webui-interface";
+            meta.description = "Run the Meta WebUI Interface server.";
           };
         }
       );
