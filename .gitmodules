@@ -3,4 +3,5 @@
 	url = git@gitpub.wei.wisc.edu:botts1/metadata_schema_prototyping.git
 [submodule "meta_webui_interface"]
 	path = datacatlogue_webui_test
-	url = git@gitpub.wei.wisc.edu:botts1/sheet-plate-builder/sheet_plate_app.git
+	url = git@gitpub.wei.wisc.edu:botts1/meta-ui-dev/sheet_plate_app.git
+ 
