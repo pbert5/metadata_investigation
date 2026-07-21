@@ -2,6 +2,6 @@
 	path = kat_schema_prototyping
 	url = git@gitpub.wei.wisc.edu:botts1/metadata_schema_prototyping.git
 [submodule "meta_webui_interface"]
-	path = datacatlogue_webui_test
+	path = meta_webui_interface
 	url = git@gitpub.wei.wisc.edu:botts1/meta-ui-dev/sheet_plate_app.git
  
