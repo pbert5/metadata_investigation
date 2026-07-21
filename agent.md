@@ -50,3 +50,8 @@ When schema structure changes, update:
 - `docs/schema-optimization.md`
 - `docs/dataharmonizer-compatibility.md`
 
+## Commit Discipline
+
+Commit frequently using the atomic commit model: each commit should contain one
+coherent change with its matching docs, metadata, and tests. Put unrelated
+cleanup or follow-up behavior in separate commits.
