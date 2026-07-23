@@ -1,7 +1,13 @@
 {
   description = "Metadata schema optimization and DataHarmonizer compatibility tooling";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    meta_webui_interface = {
+      url = "path:./meta_webui_interface";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   outputs =
     { nixpkgs, ... }:
@@ -39,6 +45,9 @@
               cp -r ${appRoot}/src app/src
               cp -r ${appRoot}/static app/static
               cp -r ${appRoot}/internal_config app/internal_config
+              cp -r ${appRoot}/db app/db
+              cp -r ${appRoot}/reference_data app/reference_data
+              cp -r ${appRoot}/tools app/tools
               cp ${appRoot}/run.py app/run.py
             '';
           };
@@ -167,9 +176,36 @@
           };
           metaWebuiInterface = pkgs.writeShellApplication {
             name = "meta-webui-interface";
-            runtimeInputs = [ pkgs.python3 ];
+            runtimeInputs = [
+              pkgs.bash
+              pkgs.coreutils
+              pkgs.git
+              pkgs.nix
+            ];
             text = ''
-              exec python meta_webui_interface/run.py "$@"
+              metadata_root="$PWD"
+              if git_root="$(git rev-parse --show-toplevel 2>/dev/null)"; then
+                metadata_root="$git_root"
+              fi
+
+              if [ -f "$metadata_root/metadata/flake.nix" ] && [ -d "$metadata_root/metadata/meta_webui_interface" ]; then
+                metadata_root="$metadata_root/metadata"
+              fi
+
+              while [ "$metadata_root" != "/" ]; do
+                if [ -f "$metadata_root/flake.nix" ] && [ -d "$metadata_root/meta_webui_interface" ]; then
+                  break
+                fi
+                metadata_root="$(dirname "$metadata_root")"
+              done
+
+              if [ ! -f "$metadata_root/meta_webui_interface/flake.nix" ]; then
+                echo "Could not find meta_webui_interface child flake from $PWD" >&2
+                exit 1
+              fi
+
+              cd "$metadata_root/meta_webui_interface"
+              exec nix run "path:$PWD#meta-webui-interface" -- "$@"
             '';
           };
         in
@@ -325,6 +361,7 @@
               pkgs.jq
               pkgs.nix
               pkgs.nodejs
+              pkgs.postgresql
               pkgs.yarn
               pkgs.uv
               pkgs.yq-go
