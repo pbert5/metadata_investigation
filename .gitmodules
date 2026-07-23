@@ -4,6 +4,6 @@
 [submodule "meta_webui_interface"]
 	path = meta_webui_interface
 	url = git@gitpub.wei.wisc.edu:botts1/meta-ui-dev/sheet_plate_app.git
- [submodule "bio-automation-lab-schema"]
+[submodule "bio-automation-lab-schema"]
 	path = bio-automation-lab-schema
 	url = git@gitpub.wei.wisc.edu:botts1/bio-automation-lab-schema.git
